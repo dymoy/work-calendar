@@ -7,6 +7,7 @@ $(function () {
   currentDay = dayjs();
   var timeBlocksContainer = $('#time-block-container');
   const hoursOfDay = 9; 
+
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
   // local storage. HINT: What does `this` reference in the click listener
@@ -15,17 +16,14 @@ $(function () {
   // useful when saving the description in local storage?
   
 
-  
-  // TODO: Add code to apply the past, present, or future class to each time
-  // block by comparing the id to the current hour. HINTS: How can the id
-  // attribute of each time-block be used to conditionally add or remove the
-  // past, present, and future classes? How can Day.js be used to get the
-  // current hour in 24-hour time?
+  // Apply the past, present, or future class to each time block by comparing the id to the current hour. 
   var currentTime = currentDay.hour();
   console.log(currentTime);
 
   for(let i = 0; i < 9; i++) {
+    // Get the corresponding child under #time-block-container div
     var currTimeBlock = timeBlocksContainer.children('div').eq(i);
+    // Store the hour within the ID of the current timeblock 
     var selectedTime = Number(currTimeBlock.attr('id').slice(5));
     console.log(selectedTime);
 
@@ -40,12 +38,11 @@ $(function () {
       currTimeBlock.addClass('future');
     }
   }
-  //
+  
   // TODO: Add code to get any user input that was saved in localStorage and set
   // the values of the corresponding textarea elements. HINT: How can the id
   // attribute of each time-block be used to do this?
-  //
-  // TODO: Add code to display the current date in the header of the page.
-  // $(`#currentDay`).text(dayjs().format('dddd, MMMM DD | HH:mm'));
+  
+  // Display the current date in the header of the page.
   $('#currentDay').text(currentDay.format('MMM D, YYYY | HH:mm'));
 });
