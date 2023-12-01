@@ -3,7 +3,8 @@
 // in the html.
 var root = $('#root');
 var currentDay = dayjs('2023-11-30 13:23');
-var timeBlocksContainer = $('#time-blocks-container');
+var timeBlocksContainer = $('#time-block-container');
+const hoursOfDay = 9; 
 
 $(function () {
   // TODO: Add a listener for click events on the save button. This code should
@@ -19,6 +20,19 @@ $(function () {
   // past, present, and future classes? How can Day.js be used to get the
   // current hour in 24-hour time?
   var currentTime = currentDay.hour();
+  console.log(currentTime);
+
+  for(let i = 0; i < 9; i++) {
+    var currTimeBlock = timeBlocksContainer.children('div').eq(i);
+    var currTime = Number(currTimeBlock.attr('id').slice(5));
+    console.log(currTime);
+
+    
+    if (currentTime > currTime) {
+      currTimeBlock.addClass('past');
+    }
+  }
+
   //
   // TODO: Add code to get any user input that was saved in localStorage and set
   // the values of the corresponding textarea elements. HINT: How can the id
