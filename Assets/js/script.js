@@ -3,8 +3,8 @@
 // in the html.
 $(function () {
   var root = $('#root');
-  // var currentDay = dayjs('2023-11-30 13:23');
-  currentDay = dayjs();
+  var currentDay = dayjs('2023-11-30 15:23');
+  // currentDay = dayjs();
   var timeBlocksContainer = $('#time-block-container');
   const hoursOfDay = 9; 
 
@@ -14,18 +14,31 @@ $(function () {
   // function? How can DOM traversal be used to get the "hour-x" id of the
   // time-block containing the button that was clicked? How might the id be
   // useful when saving the description in local storage?
-  
+  function handleSave(event) {
+    var eventParentEl = event.target.parentElement;
 
+    while(eventParentEl.tagName != 'DIV') {
+      eventParentEl = eventParentEl.parentElement;
+    }
+
+    var timeBlockID = eventParentEl.id;
+    var textToSave = eventParentEl.children[1].value;
+    
+    localStorage.setItem(timeBlockID, textToSave);
+  }
+
+  timeBlocksContainer.on('click', '.saveBtn', handleSave);
+  
   // Apply the past, present, or future class to each time block by comparing the id to the current hour. 
   var currentTime = currentDay.hour();
-  console.log(currentTime);
+  // console.log(currentTime);
 
   for(let i = 0; i < 9; i++) {
     // Get the corresponding child under #time-block-container div
     var currTimeBlock = timeBlocksContainer.children('div').eq(i);
     // Store the hour within the ID of the current timeblock 
     var selectedTime = Number(currTimeBlock.attr('id').slice(5));
-    console.log(selectedTime);
+    // console.log(selectedTime);
 
     if (currentTime > selectedTime) {
       // If selectedTime is in the past, display color of timeblocks in grey 
