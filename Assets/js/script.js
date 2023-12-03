@@ -3,10 +3,12 @@
 // in the html.
 $(function () {
   var root = $('#root');
-  var currentDay = dayjs('2023-11-30 15:23');
+  var currentDay = dayjs('2023-11-30 13:23');
   // currentDay = dayjs();
   var timeBlocksContainer = $('#time-block-container');
   const hoursOfDay = 9; 
+
+  renderLastSaved();
 
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
@@ -15,7 +17,7 @@ $(function () {
   // time-block containing the button that was clicked? How might the id be
   // useful when saving the description in local storage?
   function handleSave(event) {
-    var eventParentEl = event.target.parentElement;
+    var eventParentEl = event.target;
 
     while(eventParentEl.tagName != 'DIV') {
       eventParentEl = eventParentEl.parentElement;
@@ -25,13 +27,14 @@ $(function () {
     var textToSave = eventParentEl.children[1].value;
     
     localStorage.setItem(timeBlockID, textToSave);
+
+    renderLastSaved();
   }
 
   timeBlocksContainer.on('click', '.saveBtn', handleSave);
   
   // Apply the past, present, or future class to each time block by comparing the id to the current hour. 
   var currentTime = currentDay.hour();
-  // console.log(currentTime);
 
   for(let i = 0; i < 9; i++) {
     // Get the corresponding child under #time-block-container div
@@ -52,9 +55,15 @@ $(function () {
     }
   }
   
-  // TODO: Add code to get any user input that was saved in localStorage and set
-  // the values of the corresponding textarea elements. HINT: How can the id
-  // attribute of each time-block be used to do this?
+  // Get any user input that was saved in localStorage and set the values of the corresponding textarea elements.
+  function renderLastSaved() {
+    // For each textarea element, get the parent's id attribute to search local storage
+    $('textarea').each(function() {
+      var parentName = $(this).parent().attr('id');
+      // Set the textarea content as the value saved in local storage
+      $(this).val(localStorage.getItem(parentName));
+    })
+  }
   
   // Display the current date in the header of the page.
   $('#currentDay').text(currentDay.format('MMM D, YYYY | HH:mm'));
