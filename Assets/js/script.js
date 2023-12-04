@@ -65,7 +65,7 @@ $(function () {
   }
 
   // Display the current date in the header of the page
-  $('#currentDay').text(currentDay.format('dddd, MMM D, YYYY | h:mm A'));
+  $('#currentDay').text(currentDay.format('dddd | MMMM D, YYYY | h:mm A'));
   colorTimeBlocks();
   renderLastSaved();
   
