@@ -4,7 +4,7 @@ Daily Work Day Scheduler
 
 ## Description
 
-The goal of this project is to create a web tool of which the user can plan their daily schedule, in a typical 9AM - 5PM work day. It implements the Day.js library to work with date and time and color codes the time blocks based on past, present, or future. 
+The goal of this project is to create a web tool of which the user can use to plan their daily schedule (in a typical 9AM - 5PM work day). It implements the Day.js library to work with date and time and color codes the time blocks based on past, present, or future. The application also utilizes the jQuery library to simplify DOM traversal and manipulation. 
 
 Once the user enters an event in a time block and presses the save button, the data is saved in local storage so that the data persists, even after refreshing the page. 
 
